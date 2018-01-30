@@ -1,0 +1,16 @@
+<table align="center" width=100% border=1 cellspacing=0.5>
+<caption><font="verdana" color=#0000ff size=3><b>生产任务单查询结果</b></font></caption>
+<tr><th>序号</th><th>日期</th><th>任务单号</th><th>姓名</th><th>客户</th><th>起重机类型</th><th>生产任务单</th><th>说明书</th></tr>
+{% for item in objdbs %}
+<tr>
+<td id="para_td">{{item.id}}</td>
+<td id="para_td">{{item.pro_date|date:"Y-m-d"}}</td>
+<td id="para_td">{{item.pro_number}}</td>
+<td id="para_td">{{item.pro_name}}</td>
+<td id="para_td">{{item.pro_clientname}}</td>
+<td id="para_td">{{item.pro_cranetype}}</td>
+<td id="para_td">{{item.pro_filename}}</td>
+<td id="para_td">{{item.pro_manual}}</td>
+</tr>
+{% endfor %}
+</table>

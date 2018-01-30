@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html";charset="utf-8">
+   <title>{% block title %}默认标题{% endblock %}</title>
+   <style>
+       #para_td {text-align:center}
+   </style>
+</head>
+<body>
+   	<table width=100% align="center">
+	<tr>
+	   {% block manually %}<td align="right"><a href="/login.html" target="_blank">管理入口</a></td>{% endblock %}
+	</tr>
+	<tr>
+	  <td align="center"> <font face="Verdana" color=#0000ff size=5><b>生产任务单查询</b></font></td>
+	</tr>
+    <tr>
+       <td align="center"> 
+          <form name="search" action="/search_pronumber" method="get">
+           {% if date_flag %}
+                日期: <input type="text" size=20 name="pro_date" value="2000-02-01">
+           {% else %}
+                日期: <input type="text" size=20 name="pro_date" value="日期格式不正确，例：2000-02-01,2000-03-01">
+           {% endif %}
+
+           单号:<input type="text" size=20 name="pro_number">
+               
+           姓名:<input type="text" size=20 name="pro_name">
+               
+           客户:<input type="text" size=20 name="pro_clientname">
+           
+           起重机类型:<input type="text" size=20 name="pro_cranetype">
+           <input name="submit" type=submit value="查询">
+           </form>	   
+           {% include "result.html" %}
+		</td>
+	 </tr>	
+     </table>
+	
+</body>
+</html>

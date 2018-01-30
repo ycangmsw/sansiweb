@@ -1,0 +1,249 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html";charset="utf-8">
+<title>{% block title %}默认标题{% endblock %}</title>
+<style>
+#id_searchDateStart
+{
+    width:100px;
+}
+
+#id_searchDateEnd
+{
+    width:100px;
+}
+
+#id_searchClientName
+{
+    width:100px;
+}
+
+#id_searchName
+{
+    width:100px;
+}
+
+#id_searchClient
+{
+	width:100px;
+}
+
+#id_searchNumber
+{
+	width:100px;
+}
+
+
+#td_result_list 
+{
+    text-align:center;
+    background-color:#f29c16;
+}
+
+#td_as_detail 
+{
+	 width:15%;
+    text-align:center;
+    background-color:#f29c16;
+}
+
+#td_result_vaule
+{
+    width:15%;    
+    text-align:center;
+    background-color:#bcf216;
+}
+
+#td_result_vaule_fault
+{
+    text-align:left;
+    background-color:#bcf216;
+}
+
+#td_hr_width /*设表格宽*/
+{
+	width:2px;
+}
+
+table
+{
+    text-align:center;
+}
+
+th
+{
+	background-color:#b09c52;
+    text-align:center;
+	margin:0px;
+	border:1px;
+	padding:3x 0px 3px;
+}
+
+#td_info
+{
+	color:#ff0000;
+	text-align:center;
+}
+
+#hr_vertical /*垂直分割线*/
+{
+	width:2px;
+	height:20px;
+}
+
+.textinput_special
+{
+	margin:0px 2px 0px;
+	border:0px;
+	padding:0px;
+	width:205px;
+	height:22px;
+	line-height:22px;
+}
+
+.select_special
+{
+	margin:0px;
+	border:0px;
+	padding:0px;
+	height:22px;
+}
+
+</style>
+</head>
+<body style="background-color:#b0e468">
+   <table width=100% align="center">
+	<tr>
+	   {% block manage %}<td align="right"><a href="/asdb_login" target="_blank">管理入口</a></td>{% endblock %}
+	</tr>
+	<tr>
+	  <td align="center"> <font face="Verdana" color=#0000ff size=5><b>售后记录查询</b></font></td>
+	</tr>
+	</table>
+	<table width=100% align="center">
+	<tr>
+        {% block errinfo %}<td id="td_info"><p>{{ error_info }}</td>{% endblock %}
+	</tr>
+	<tr>
+        {% block resultinfo %}<td id="td_info"><p>{{ result_info }}</td>{% endblock %}
+	</tr>
+	</table>
+
+  <table width=100% align="center"> 
+     <tr>
+     <td align="center">
+  	    <form name="search" action="/search" method="get">
+		  <table align="center">
+		  <tr>
+		  <td style="width:300px;text-align:left"><label>查询时间段</label>{{form.searchDateStart}}-{{form.searchDateEnd}}</td>
+          <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+		  <td ><label>生产单号</label>{{form.searchNumber}}</td>
+		  <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+		  <td ><label>客户名称</label> {{form.searchClient}}</td>
+		  <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+		  <td ><label>联系人</label> {{form.searchClientName}}</td>
+		  <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+		  <td ><label>销售员姓名</label> {{form.searchName}}</td>
+		  <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+		  <td style="text-align:left"><input name="submit" type=submit value="查询"></td>       
+		  </tr>
+          <tr>
+	        <td style="text-align:left;height:22px;width:300px"><label>关键字查询</label>{{form.searchKeyWord}}</td>
+			 <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+			 <td style="text-align:left;height:22px;"><label>售后类型</label>{{form.searchType}}</td>
+			 <td id="td_hr_width"><hr id="hr_vertical"></hr></td>
+			 <td style="text-align:left;height:22px;"><label>结束标志</label>{{form.searchFlag}}</td>
+          </tr>
+		  </table>
+		</form>
+	 </td>
+	 </tr>
+ </table>
+ <table width=100%>
+    <tr>
+       <td><hr style="width:100%;height:2px;"></td>
+    </tr>
+  </table>
+ <table style="width:100%;text-align:center;">
+ <tr style="width:100%;">
+	<th colspan="2"><font face="Verdana" color=#0000ff size=5><b>查  询  结  果</b></font></th> 
+ </tr>
+ <tr>
+     <td style="width:60%;vertical-align:top;text-align:right;">
+        <table align="center" style="width:100%">	
+         <tr>
+            <th >序号</th>
+            <th >日期</th>
+            <th >生产单号</th>
+            <th>客户姓名</th>
+            <th>联系人</th>
+            <th>销售员姓名</th>
+            <th>是否结束</th>
+         </tr>
+	      {% for item in objdbs %}
+	      <tr>
+		      <td id="td_result_list">{{item.id}}</td>
+		      <td id="td_result_list">{{item.as_date|date:"Y-m-d"}}</td>
+              <td id="td_result_list"><a href={{item.as_number}}>{{item.as_number}}</a></td>
+			  <td id="td_result_list">{{item.as_client}}</td>  
+			  <td id="td_result_list">{{item.as_clientname}}</td>          
+              <td id="td_result_list">{{item.as_name}}</td>
+              <td id="td_result_list">{{item.as_flagtype}}</td>
+         </tr>
+	      {% endfor %}
+	      <tr>
+	         <td id="td_result_list"></td>
+	         <td id="td_result_list"></td>
+             <td id="td_result_list">结果共有：</td>
+             <td id="td_result_list">{{num}}</td>
+             <td id="td_result_list">条</td>
+             <td id="td_result_list"></td>
+             <td id="td_result_list"></td>
+         </tr>
+	      </table>
+	   </td>
+ 
+      <td style="width:40%;vertical-align:top;text-align:left">
+         <table style="width:100%">
+         <tr>
+            <th colspan="4">售后单明细</th>
+         </tr>
+            {% for item in item_objdb %}
+                <table style="width:100%">
+                    <tr>
+                       <td id="td_as_detail">日期:</td><td id="td_result_vaule">{{ item.as_date|date:"Y-m-d"}}</td>
+                    <td id="td_as_detail">生产单号:</td><td id="td_result_vaule">{{ item.as_number}}</td>
+                    </tr>					
+                    <tr>
+                       <td id="td_as_detail">售后类型:</td><td id="td_result_vaule">{{item.get_as_type_display }}</td>
+                       <td id="td_as_detail">销售员姓名:</td><td id="td_result_vaule">{{item.as_name}}</td>
+                    </tr>
+                    <tr>
+                       <td id="td_as_detail">客户名称:</td><td id="td_result_vaule">{{item.as_client }}</td>
+                    <td id="td_as_detail">联系人:</td><td id="td_result_vaule">{{item.as_clientname }}</td>
+                    </tr>
+                    <tr>
+                       <td id="td_as_detail">客户地址:</td><td id="td_result_vaule">{{item.as_clientaddress }}</td>
+                       <td id="td_as_detail">联系电话:</td><td id="td_result_vaule">{{item.as_clientphone }}</td>
+                    </tr>
+                    <tr>
+                       <td id="td_as_detail">起重机类型:</td><td id="td_result_vaule">{{item.as_cranetype }}</td>
+                    <td id="td_as_detail">起重机型号:</td><td id="td_result_vaule">{{item.as_cranemodel }}</td>
+                    </tr>
+                    <tr><td id="td_as_detail">仪表型号/编号:</td><td id="td_result_vaule">{{item.as_metertype }}</td></tr>
+                    
+                    <tr><td id="td_as_detail">故障描述：</td><td id="td_result_vaule_fault" colspan="3">{{ item.as_faultdescribe}}</td></tr>
+                    <tr><td id="td_as_detail">故障分析：</td><td id="td_result_vaule_fault" colspan="3">{{ item.as_faultanalyze}}</td></tr>
+                    <tr><td id="td_as_detail">处理结果：</td><td id="td_result_vaule_fault" colspan="3">{{ item.as_faultresult}}</td></tr>
+                    <tr>
+                        <td colspan="4"><hr style="width:100%;height:2px;"></td>
+                    </tr>
+                </table>
+           {% endfor %}
+         </table>
+       </td>                
+ </tr>		 
+</table>	 
+	
+</body>
+</html>

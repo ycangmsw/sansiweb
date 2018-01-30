@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html";charset="utf-8">
+<title>{% block title %}默认标题{% endblock %}</title>
+<style>
+#para_td {text-align:center}
+
+#td_red
+{
+	color:#ff0000;
+	text-align:center;
+}
+
+</style>
+</head>
+<body>
+	<table width=100% align="center">
+	<tr>
+		{% block errinfo %}<td id="td_red"><p>{{ error_info }}</td>{% endblock %}
+	</tr>
+	<tr>
+		{% block resultinfo %}<td id="td_red"><p>{{ result_info }}</td>{% endblock %}
+	</tr>
+	</table>
+   	<table width=100% align="center">
+	<tr>
+	  <td align="center"> <font face="Verdana" color=#0000ff size=5><b>售后登录</b></font></td>
+	</tr>
+    <tr>
+       <td align="center"> 
+          <form name="login" action="/asdb_login" method="post">
+		  {% csrf_token %}
+		  <table>
+		     <tr>
+				 <td><label>登录名：</label></td><td>{{ form.name }}</td>
+             </tr>
+			 <tr>
+				 <td><label>密 码：</label></td><td>{{ form.passwd }}</td>
+			 </tr>
+		  </table>
+          <input name="submit" type=submit value="确 定">
+          </form>	   
+		</td>
+	 </tr>	
+     </table>
+	
+</body>
+</html>

@@ -1,0 +1,114 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html";charset="utf-8">
+<title>{% block title %}默认标题{% endblock %}</title>
+<style>
+#td_width /*设表格宽*/
+{
+	width:10px;
+}
+
+#td_red
+{
+	color:#ff0000;
+	text-align:center;
+}
+
+#hr_vertical /*垂直分割线*/
+{
+	width:2px;
+	height:20px;
+}
+
+input
+{
+	font-size:12pt;
+}
+
+textarea
+{
+	font-size:12pt;
+}
+
+option
+{
+	font-size:12pt;
+}
+
+select
+{
+	font-size:12pt;
+}
+
+</style>
+</head>
+<body>
+	<table width=100% align="center">
+	<tr>
+        {% block errinfo %}<td align="center"><p>{{ error_info }}</td>{% endblock %}
+	</tr>
+	<tr>
+        {% block resultinfo %}<td id="td_red"><p>{{ result_info }}</td>{% endblock %}
+	</tr>
+	</table>
+
+   	<table width=100% align="center">
+	<tr>
+	  <td align="center"> <font face="Verdana" color=#0000ff size=5><b>售后记录</b></font></td>
+	</tr>
+    <tr>
+       <td align="center"> 
+          <form name="asdb_input" action="/asdb_input" method="post">
+          {% csrf_token %}
+          <table>
+          <tr>
+			  <td align="left"><label>售后类型:</label></td><td>{{ form.as_type }}</td> 
+			  <td id="td_width"><hr id="hr_vertical"></hr></td> 
+			  <td><label>是否完成:</label></td><td>{{ form.as_flagtype }}</td>         
+          </tr>          
+          
+          <tr>
+			  <td><label>售后单号(必填):</label></td><td>{{ form.as_number }}</td>
+			  <td id="td_width"><hr id="hr_vertical"></hr></td>
+			  <td><label>日期(必填):</label></td><td>{{ form.as_date }}</td>          
+          </tr>
+          <tr>
+			  <td><label>客户名称:</label></td><td>{{ form.as_client }}</td>
+			  <td id="td_width"><hr id="hr_vertical"></td>
+			  <td><label>联系人:</label></td><td>{{ form.as_clientname  }}</td>          
+          </tr>
+          <tr>
+           <td><label>客户地址:</label></td><td>{{ form.as_clientaddress }}</td>
+			  <td id="td_width"><hr id="hr_vertical"></td>
+			  <td><label>联系电话:</label></td><td>{{ form.as_clientphone }}</td>          
+          </tr>
+          <tr>
+			  <td><label>起重机类型:</label></td><td>{{ form.as_cranetype }}</td>
+			  <td id="td_width"><hr id="hr_vertical"></td>
+			  <td><label>起重机型号:</label></td><td>{{ form.as_cranemodel }}</td>
+          </tr>
+          <tr>
+			  <td><label>仪表型号/编号:</label></td><td>{{ form.as_metermodel }}</td>
+			  <td id="td_width" ><hr id="hr_vertical"></hr> </td>
+			  <td><label>销售员姓名(必填):</label></td><td>{{ form.as_name }}</td>          
+          </tr>          
+          </table>
+          <table>
+          <tr>
+			  <td><label>故障描述：</label></td><td>{{ form.as_faultdescribe }}</td>
+          </tr>
+          <tr>
+			  <td><label>故障分析：</label></td><td>{{ form.as_faultanalyze }}</td>
+          </tr>
+          <tr>
+			  <td><label>处理结果：</label></td><td>{{ form.as_faultresult }}</td>
+          </tr>            
+          </table>
+           <input name="submit" type=submit value="确定">
+           </form>	   
+		</td>
+	 </tr>	
+     </table>
+	
+</body>
+</html>
